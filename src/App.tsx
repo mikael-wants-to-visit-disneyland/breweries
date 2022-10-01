@@ -2,8 +2,10 @@ import React from "react";
 import _ from "lodash";
 import "./App.css";
 import { Map, Marker } from "pigeon-maps";
+import { Table, Progress } from "antd";
+import "antd/dist/antd.css";
 
-const PAGE_SIZE = 3;
+const PAGE_SIZE = 20;
 const MARKER_WIDTH = 30;
 const API_URL = `https://api.openbrewerydb.org/breweries?by_city=san_diego&per_page=${PAGE_SIZE}`;
 
@@ -18,6 +20,7 @@ export interface IBrewery {
   latitude: number;
   phone: string;
   url: string;
+  rating: number;
 }
 
 function App() {
@@ -49,30 +52,69 @@ function App() {
             latitude: parseFloat(b.latitude),
             phone: b.phone,
             url: b.website_url,
+            rating: 100 * Math.random(),
           }))
         )
       )
       .catch((err) => console.error(err));
-  console.log(center);
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+    },
+    {
+      title: "Type",
+      dataIndex: "breweryType",
+      key: "breweryType",
+    },
+    {
+      title: "Phone",
+      dataIndex: "phone",
+      key: "phone",
+    },
+    {
+      title: "URL",
+      dataIndex: "url",
+      key: "url",
+    },
+    {
+      title: "Rating",
+      dataIndex: "rating",
+      key: "rating",
+      render: (value: number) => (
+        <Progress percent={value} size="small" showInfo={false} />
+      ),
+    },
+  ];
+  console.log(breweries);
   return (
     <div className="App">
-      <Map
-        height={300}
-        center={center}
-        zoom={zoom}
-        onBoundsChanged={({ center, zoom }) => {
-          setCenter(center);
-          setZoom(zoom);
-        }}
-      >
-        {breweries.map((b: IBrewery) => (
-          <Marker
-            key={b.id}
-            width={MARKER_WIDTH}
-            anchor={[b.latitude, b.longitude]}
-          />
-        ))}
-      </Map>
+      <div className="App-body">
+        <Map
+          height={300}
+          center={center}
+          zoom={zoom}
+          onBoundsChanged={({ center, zoom }) => {
+            setCenter(center);
+            setZoom(zoom);
+          }}
+        >
+          {breweries.map((b: IBrewery) => (
+            <Marker
+              key={b.id}
+              width={MARKER_WIDTH}
+              anchor={[b.latitude, b.longitude]}
+            />
+          ))}
+        </Map>
+        <Table
+          className="breweries-table"
+          columns={columns}
+          dataSource={breweries}
+          size="small"
+        />
+      </div>
     </div>
   );
 }
