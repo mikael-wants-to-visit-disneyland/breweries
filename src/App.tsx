@@ -2,8 +2,9 @@ import React from "react";
 import _ from "lodash";
 import "./App.css";
 import { Map, Marker } from "pigeon-maps";
-import { Table, Progress } from "antd";
+import { Table, Progress, Tag } from "antd";
 import "antd/dist/antd.css";
+import { ArrowRightOutlined } from "@ant-design/icons";
 
 const PAGE_SIZE = 20;
 const MARKER_WIDTH = 30;
@@ -26,7 +27,8 @@ export interface IBrewery {
 function App() {
   const [breweries, setBreweries] = React.useState<IBrewery[]>([]);
   const [center, setCenter] = React.useState<[number, number]>([0, 0]);
-  const [zoom, setZoom] = React.useState(9);
+  const [zoom, setZoom] = React.useState<number>(9);
+  const [location, setLocation] = React.useState<string>("San Diego");
   React.useEffect(() => {
     getAndSetBreweries();
   }, []);
@@ -69,14 +71,14 @@ function App() {
       key: "breweryType",
     },
     {
+      title: "Street",
+      dataIndex: "street",
+      key: "street",
+    },
+    {
       title: "Phone",
       dataIndex: "phone",
       key: "phone",
-    },
-    {
-      title: "URL",
-      dataIndex: "url",
-      key: "url",
     },
     {
       title: "Rating",
@@ -86,11 +88,32 @@ function App() {
         <Progress percent={value} size="small" showInfo={false} />
       ),
     },
+    {
+      title: "",
+      dataIndex: "url",
+      key: "url",
+      render: (url: string) =>
+        url && (
+          <div
+            style={{
+              width: 0,
+              overflow: "visible",
+              transform: "translate(36px)",
+            }}
+          >
+            <Tag icon={<ArrowRightOutlined />} color="cyan">
+              website
+            </Tag>
+          </div>
+        ),
+    },
   ];
-  console.log(breweries);
   return (
     <div className="App">
       <div className="App-body">
+        <div className="header">
+          <div className="location-title">{location}</div>
+        </div>
         <Map
           height={300}
           center={center}
