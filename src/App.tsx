@@ -10,7 +10,7 @@ import { DefaultOptionType } from "antd/lib/cascader";
 const MAP_HEIGHT = 310;
 const PAGE_SIZE = 20;
 const MARKER_WIDTH = 40;
-const DEFAULT_ZOOM = 10;
+const DEFAULT_ZOOM = 12;
 const MARKER_COLOR = "#0080ff";
 const API_URL = `https://api.openbrewerydb.org/breweries?by_city={TOWN}&by_state={STATE}&per_page=${PAGE_SIZE}`;
 const DUMMY_LOCATIONS: ILocation[] = [

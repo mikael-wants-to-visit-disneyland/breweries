@@ -33,6 +33,11 @@
   box-shadow: 0 13px 50px rgb(0 0 0 / 20%);
 }
 
+.breweries-table .ant-table-thead .ant-table-cell {
+  background-color: #969696;
+  color: white;
+}
+
 .breweries-table .highlighted-row {
   box-shadow: 0 0 20px rgb(0 0 0 / 20%);
   transition: 0.3s;
