@@ -15,6 +15,9 @@
 .header {
   margin-top: 40px;
   margin-bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .location-title {
@@ -23,8 +26,13 @@
 
 .breweries-table {
   margin-top: 31px;
+  width: 92%;
 }
 
 .breweries-table .ant-table {
-  box-shadow: 0 25px 60px rgb(0 0 0 / 20%);
+  box-shadow: 0 13px 50px rgb(0 0 0 / 20%);
+}
+
+.location-select {
+  width: 20%;
 }
