@@ -9,8 +9,9 @@ import { DefaultOptionType } from "antd/lib/cascader";
 
 const MAP_HEIGHT = 310;
 const PAGE_SIZE = 20;
-const MARKER_WIDTH = 30;
+const MARKER_WIDTH = 40;
 const DEFAULT_ZOOM = 10;
+const MARKER_COLOR = "#0080ff";
 const API_URL = `https://api.openbrewerydb.org/breweries?by_city={TOWN}&by_state={STATE}&per_page=${PAGE_SIZE}`;
 const DUMMY_LOCATIONS: ILocation[] = [
   { id: 0, town: "san_diego", state: "california" },
@@ -65,6 +66,9 @@ function App() {
     town: "detroit",
     state: "michigan",
   });
+  const [selectedBrewery, setSelectedBrewery] = React.useState<string | null>(
+    null
+  );
 
   React.useEffect(() => {
     if (location) {
@@ -155,6 +159,7 @@ function App() {
         ),
     },
   ];
+  console.log(selectedBrewery);
   const { Option } = Select;
   return (
     <div className="App">
@@ -197,16 +202,35 @@ function App() {
           {breweries.map((b: IBrewery) => (
             <Marker
               key={b.id}
+              style={{
+                opacity: !selectedBrewery || selectedBrewery === b.id ? 1 : 0.4,
+                zIndex: selectedBrewery === b.id ? 100 : 1,
+              }}
+              color={MARKER_COLOR}
               width={MARKER_WIDTH}
               anchor={[b.latitude, b.longitude]}
+              onMouseOver={(x) => setSelectedBrewery(b.id)}
+              onMouseOut={(x) => setSelectedBrewery(null)}
             />
           ))}
         </Map>
         <Table
           className="breweries-table"
+          rowClassName={(row) => {
+            if (row.id === selectedBrewery) {
+              return "highlighted-row";
+            } else if (selectedBrewery) {
+              return "faded-row";
+            }
+            return "";
+          }}
           columns={columns}
           dataSource={breweries}
           size="small"
+          onRow={(row) => ({
+            onMouseEnter: () => setSelectedBrewery(row.id),
+            onMouseLeave: () => setSelectedBrewery(null),
+          })}
         />
       </div>
     </div>
