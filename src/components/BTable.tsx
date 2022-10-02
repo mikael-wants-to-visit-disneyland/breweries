@@ -51,9 +51,11 @@ export default function BTable(props: BTableProps) {
               transform: "translate(36px)",
             }}
           >
-            <Tag icon={<ArrowRightOutlined />} color="cyan">
-              website
-            </Tag>
+            <a href={url} target="_blank">
+              <Tag icon={<ArrowRightOutlined />} color="cyan">
+                website
+              </Tag>
+            </a>
           </div>
         ),
     },
