@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# Brutally Beautiful Brewery Browser
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A lightweight platform for browsing American breweries. Made not only for beer bros or bar owners, but for any lover of booze.
 
-## Available Scripts
+## Design
 
-In the project directory, you can run:
+There are two main user groups that we wanted to satisfy:
 
-### `npm start`
+1. Restaurants, bars and shops looking to source local beers.
+2. People who want to sample craft beers.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Without yet talking with a single user, we made some assumptions:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Users tend to consider a town or city as the natural unit of navigation.
+2. Some users want to drill down into breweries by location, while others want to start their exploration from the companies' details.
+3. There is a need for information about the breweries' perceived quality.
 
-### `npm test`
+Each of these assumptions lead to the following decisions respectively:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. The view shows all the breweries for a town / city, chosen by a selection element, and the location is shown in the title.
+2. It does not matter whether a user hovers over a row in the table or over a marker on the map; these interactions are symmetric.
+3. We added a dummy 'rating' for each brewery. As there is no unified API for brewery ratings, if we end up using such a feature in a production version, the data could be a synthesis form multiple sources.
 
-### `npm run build`
+We aim to do some proper UX research over the next few months in order to find out users' actual painpoints and opportunities for value boosting, and thus account for all major use cases. It may be, for example, that some users do not want to restrict their searching to one town at a time, but would want to view a whole county or region, or by postcode.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Implementation
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+This is a simple React app, with a single view. We chose `antd` as the UI library due to its supreme combination of aesthetics and simplicity of use.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Todo
 
-### `npm run eject`
+If you would like to contribute, these would be a great place to start from:
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Craft a mobile version.
+- Extend the context outside of the USA, to be worldwide.
+- Add schema validation, using e.g. `yup`
+- Some breweries lack a latitude and longitude -- these are currently filtered out. While it would be ideal for this to be fixed in the database, we should handle the non-ideal reality by figuring out the coordinates from the street address.
+- Add filtering, e.g. by brewery type.
