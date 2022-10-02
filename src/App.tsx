@@ -1,17 +1,14 @@
 import React from "react";
 import _ from "lodash";
 import "./App.css";
-import { Map, Marker } from "pigeon-maps";
 import { Select } from "antd";
 import "antd/dist/antd.css";
 import { DefaultOptionType } from "antd/lib/cascader";
 import BTable from "./components/BTable";
+import BMap from "./components/BMap";
 
 const MAP_HEIGHT = 310;
 const PAGE_SIZE = 20;
-const MARKER_WIDTH = 40;
-const DEFAULT_ZOOM = 12;
-const MARKER_COLOR = "#0080ff";
 const API_URL = `https://api.openbrewerydb.org/breweries?by_city={TOWN}&by_state={STATE}&per_page=${PAGE_SIZE}`;
 const DUMMY_LOCATIONS: ILocation[] = [
   { id: 0, town: "san_diego", state: "california" },
@@ -60,7 +57,6 @@ const getDisplayLocationName = (location: ILocation) =>
 function App() {
   const [breweries, setBreweries] = React.useState<IBrewery[]>([]);
   const [center, setCenter] = React.useState<[number, number]>([0, 0]);
-  const [zoom, setZoom] = React.useState<number>(DEFAULT_ZOOM);
   const [location, setLocation] = React.useState<ILocation | undefined>({
     id: 10,
     town: "detroit",
@@ -142,30 +138,13 @@ function App() {
             ))}
           </Select>
         </div>
-        <Map
+        <BMap
           height={MAP_HEIGHT}
           center={center}
-          zoom={zoom}
-          onBoundsChanged={({ center, zoom }) => {
-            setCenter(center);
-            setZoom(zoom);
-          }}
-        >
-          {breweries.map((b: IBrewery) => (
-            <Marker
-              key={b.id}
-              style={{
-                opacity: !selectedBrewery || selectedBrewery === b.id ? 1 : 0.4,
-                zIndex: selectedBrewery === b.id ? 100 : 1,
-              }}
-              color={MARKER_COLOR}
-              width={MARKER_WIDTH}
-              anchor={[b.latitude, b.longitude]}
-              onMouseOver={(x) => setSelectedBrewery(b.id)}
-              onMouseOut={(x) => setSelectedBrewery(null)}
-            />
-          ))}
-        </Map>
+          breweries={breweries}
+          selectedBrewery={selectedBrewery}
+          setSelectedBreweryCallback={(id) => setSelectedBrewery(id)}
+        />
         <BTable
           breweries={breweries}
           selectedBrewery={selectedBrewery}

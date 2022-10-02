@@ -1,4 +1,3 @@
-import * as React from "react";
 import { Table, Progress, Tag } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { IBrewery } from "../App";
