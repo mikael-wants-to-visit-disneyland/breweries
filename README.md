@@ -1,13 +1,16 @@
 # Brutally Beautiful Brewery Browser
 
-A lightweight platform for browsing American breweries. Made not only for beer bros or bar owners, but for any lover of booze.
+A lightweight platform for browsing American breweries. Made not only for beer bros, but for any lover of booze.
 
-## Design
+## Process
 
+### Users
 There are two main user groups that we wanted to satisfy:
 
 1. Restaurants, bars and shops looking to source local beers.
 2. People who want to sample craft beers.
+
+### Assumptions
 
 Without yet talking with a single user, we made some assumptions:
 
@@ -23,7 +26,7 @@ Each of these assumptions lead to the following decisions respectively:
 
 We aim to do some proper UX research over the next few months in order to find out users' actual painpoints and opportunities for value boosting, and thus account for all major use cases. It may be, for example, that some users do not want to restrict their searching to one town at a time, but would want to view a whole county or region, or by postcode.
 
-## Implementation
+### Implementation
 
 This is a simple React app, with a single view. We chose `antd` as the UI library due to its supreme combination of aesthetics and simplicity of use.
 
