@@ -1,6 +1,7 @@
 import { Table, Progress, Tag } from "antd";
 import { ArrowRightOutlined } from "@ant-design/icons";
 import { IBrewery } from "../App";
+import "./BTable.css";
 
 export interface BTableProps {
   breweries: IBrewery[];
