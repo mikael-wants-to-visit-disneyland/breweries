@@ -2,6 +2,8 @@
 
 A lightweight platform for browsing American breweries. Made not only for beer bros, but for any lover of booze.
 
+[Demo](https://www.loom.com/share/d9bb6e7e30224aa1b9302a6401587644)
+
 ## Process
 
 ### Users
