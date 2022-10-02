@@ -31,8 +31,15 @@ This is a simple React app, with a single view. We chose `antd` as the UI librar
 
 If you would like to contribute, these would be a great place to start from:
 
-- Craft a mobile version.
+### Issues
+
+- It is possible to select a marker whose corresponding table row is not on the current page. Should switch the page to show it.
+- The map's zoom level is currently a constant, which causes some markers to be non-visible for many locations. Should ensure that all markers are visible by default.
+- Some breweries lack a latitude and longitude -- these are currently filtered out. While it would be ideal for this to be fixed in the database, we should handle the non-ideal reality by figuring out the coordinates from the street address.
+
+### Nice to have
+
 - Extend the context outside of the USA, to be worldwide.
 - Add schema validation, using e.g. `yup`
-- Some breweries lack a latitude and longitude -- these are currently filtered out. While it would be ideal for this to be fixed in the database, we should handle the non-ideal reality by figuring out the coordinates from the street address.
-- Add filtering, e.g. by brewery type.
+- Add filtering, e.g. by brewery type. This may actually be critical for the UX.
+- Replace the brewery type words with icons in order to make the type into a more visually intuitive feature.

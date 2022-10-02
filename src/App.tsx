@@ -2,10 +2,10 @@ import React from "react";
 import _ from "lodash";
 import "./App.css";
 import { Map, Marker } from "pigeon-maps";
-import { Table, Progress, Tag, Select } from "antd";
+import { Select } from "antd";
 import "antd/dist/antd.css";
-import { ArrowRightOutlined } from "@ant-design/icons";
 import { DefaultOptionType } from "antd/lib/cascader";
+import BTable from "./components/BTable";
 
 const MAP_HEIGHT = 310;
 const PAGE_SIZE = 20;
@@ -111,55 +111,7 @@ function App() {
         )
       )
       .catch((err) => console.error(err));
-  const columns = [
-    {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
-    },
-    {
-      title: "Type",
-      dataIndex: "breweryType",
-      key: "breweryType",
-    },
-    {
-      title: "Street",
-      dataIndex: "street",
-      key: "street",
-    },
-    {
-      title: "Phone",
-      dataIndex: "phone",
-      key: "phone",
-    },
-    {
-      title: "Rating",
-      dataIndex: "rating",
-      key: "rating",
-      render: (value: number) => (
-        <Progress percent={value} size="small" showInfo={false} />
-      ),
-    },
-    {
-      dataIndex: "url",
-      key: "url",
-      render: (url: string) =>
-        url && (
-          <div
-            style={{
-              width: 0,
-              overflow: "visible",
-              transform: "translate(36px)",
-            }}
-          >
-            <Tag icon={<ArrowRightOutlined />} color="cyan">
-              website
-            </Tag>
-          </div>
-        ),
-    },
-  ];
-  console.log(selectedBrewery);
+
   const { Option } = Select;
   return (
     <div className="App">
@@ -214,23 +166,10 @@ function App() {
             />
           ))}
         </Map>
-        <Table
-          className="breweries-table"
-          rowClassName={(row) => {
-            if (row.id === selectedBrewery) {
-              return "highlighted-row";
-            } else if (selectedBrewery) {
-              return "faded-row";
-            }
-            return "";
-          }}
-          columns={columns}
-          dataSource={breweries}
-          size="small"
-          onRow={(row) => ({
-            onMouseEnter: () => setSelectedBrewery(row.id),
-            onMouseLeave: () => setSelectedBrewery(null),
-          })}
+        <BTable
+          breweries={breweries}
+          selectedBrewery={selectedBrewery}
+          setSelectedBreweryCallback={(id) => setSelectedBrewery(id)}
         />
       </div>
     </div>
